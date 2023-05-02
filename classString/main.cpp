@@ -8,9 +8,6 @@ int main(){
     String secondString("Zinovieva");
     String emptyString;
     String cloneString(firstString);
-    cout << cloneString;
     String result = firstString + secondString;
-    cout << result;
-    bool check = firstString == result;
-    cout << check << endl;
+    cout << result[4];
 }
