@@ -21,11 +21,11 @@ public:
     int size() const;
     void clear();
     bool empty() const;
-    String insert(const String& need, int position);
+    String insert(String need, int position);
     String push_back(char symbol);
     String pop_back();
     String append(const String& secondString);
-    String replace(int position, int count, String newString);
+    String replace(int position, int count, const String& newString);
     String substr(int startPosition, int endPosition);
     int find_first_of(String subString);
 };

@@ -86,7 +86,7 @@ char String::back() {
     if (lengthString == 0)
         return ' ';
     else
-        return dataString[lengthString];
+        return dataString[lengthString - 1];
 }
 
 int String::size() const {
@@ -106,19 +106,23 @@ bool String::empty() const {
         return false;
 }
 
-String String::insert(const String& need, int position) {
-    int tempLength = lengthString;
-    lengthString = lengthString + need.lengthString;
-    for(int j = tempLength;j < lengthString;j++)
-        dataString[j] = dataString[j - position];
-    for(int i = position, b = 0;b < need.lengthString;i++, b++)
-        dataString[i] = need.dataString[b];
-    return dataString;
+String String::insert(String need, int position) {
+    String tempString;
+    tempString.lengthString = lengthString - position;
+    for(int i = 0, b = position;i < tempString.lengthString;i++, b++)
+        tempString.dataString[i] = dataString[b];
+    for(int j = position, a = 0;a < need.lengthString;j++, a++)
+        dataString[j] = need.dataString[a];
+    String result;
+    result.lengthString = position + need.lengthString;
+    for(int y = 0; y < result.lengthString;y++)
+        result.dataString[y] = dataString[y];
+    return result;
 }
 
 String String::push_back(char symbol) {
-    dataString[lengthString - 1] = symbol;
     lengthString++;
+    dataString[lengthString - 1] = symbol;
     return dataString;
 }
 
@@ -148,8 +152,14 @@ String String::substr(int startPosition, int endPosition) {
     return newString;
 }
 
-String String::replace(int position, int count, String newString) {
-    return String();
+String String::replace(int position, int count, const String& newString) {
+    for(int i = position;i < position + count;i++)
+        dataString[i] = '\0';
+    lengthString = lengthString - count + newString.lengthString;
+    for(int j = position;j < lengthString;j++){
+        dataString[j] = newString.dataString[j];
+    }
+    return dataString;
 }
 
 String String::append(const String& secondString) {
