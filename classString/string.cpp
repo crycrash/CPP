@@ -75,77 +75,79 @@ char String::operator[](int number) {
     return dataString[number];
 }
 
-char String::front() {
+char String::front() { //ready
     if (lengthString == 0)
         return ' ';
     else
         return dataString[0];
 }
 
-char String::back() {
+char String::back() { //ready
     if (lengthString == 0)
         return ' ';
     else
         return dataString[lengthString - 1];
 }
 
-int String::size() const {
+int String::size() const { //ready
     return lengthString;
 }
 
-void String::clear() {
+void String::clear() { //ready
     for(int i = 0;i < lengthString;i++)
         dataString[i] = '\0';
     lengthString = 0;
 }
 
-bool String::empty() const {
+bool String::empty() const { //ready
     if (lengthString == 0)
         return true;
     else
         return false;
 }
 
-String String::insert(String need, int position) {
+String String::insert(String need, int position) { //ready
     String tempString;
-    tempString.lengthString = lengthString - position;
-    for(int i = 0, b = position;i < tempString.lengthString;i++, b++)
-        tempString.dataString[i] = dataString[b];
-    for(int j = position, a = 0;a < need.lengthString;j++, a++)
-        dataString[j] = need.dataString[a];
-    String result;
-    result.lengthString = position + need.lengthString;
-    for(int y = 0; y < result.lengthString;y++)
-        result.dataString[y] = dataString[y];
-    return result;
+    for(int i = position, j = 0;i < lengthString;i++, j++)
+        tempString.dataString[j] = dataString[i];
+    lengthString += need.lengthString;
+    for(int x = position, y = 0;x < position + need.lengthString;x++, y++)
+        dataString[x] = need.dataString[y];
+    for(int h = position + need.lengthString, n = 0;h < lengthString;h++, n++)
+        dataString[h] = tempString.dataString[n];
+    return dataString;
 }
 
-String String::push_back(char symbol) {
+String String::push_back(char symbol) { //ready
     lengthString++;
     dataString[lengthString - 1] = symbol;
     return dataString;
 }
 
-String String::pop_back() {
+String String::pop_back() { //ready
     dataString[lengthString - 1] = '\0';
     lengthString--;
     return dataString;
 }
 
-int String::find_first_of(String subString) {
-    for(int i = 0;i < lengthString;i++){
+int String::find_first_of(String subString) { //ready
+    int i = 0;
+    while(i < lengthString){
         int count = 0;
-        for(int j = 0;j < subString.lengthString;j++){
-            if (dataString[i] == subString[j])
+        int j = 0;
+        while (j < subString.lengthString){
+            if (dataString[i + j] == subString[j])
                 count++;
+            j++;
         }
         if (count == subString.lengthString)
             return i;
+        i++;
     }
     return -1;
 }
 
-String String::substr(int startPosition, int endPosition) {
+String String::substr(int startPosition, int endPosition) { // ready
     String newString;
     for(int i = startPosition, j = 0;i < endPosition;i++, j++)
         newString.dataString[j] = dataString[i];

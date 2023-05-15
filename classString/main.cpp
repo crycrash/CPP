@@ -22,6 +22,12 @@ int main(){
     cout << secondString;
     secondString.pop_back();
     cout << secondString;
-    int h = secondString.find_first_of("no");
-    cout << h;
+    secondString.insert("jj", 3);
+    cout << secondString;
+    String checkString("milashkakakashka");
+    int m = checkString.find_first_of("sa");
+    cout << m << endl;
+    String haha = checkString.substr(4, 8);
+    cout << haha << endl;
+
 }
