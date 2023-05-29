@@ -15,23 +15,27 @@ void Chemistry::finder() {
     ifstream file;
     file.open(fileNameInput);
     string line;
-    map<string, float> myMap;
+    map<float, string> myMap;
+    bool flag = 0;
     while (getline(file, line)){
         if (stoi(line.substr(line.length() - 1)) == conductivity){
+            flag = 1;
             string tempString;
             int j = 0;
             while(line[j] != ' ') {
                 tempString += line[j];
                 j++;
             }
-            float number = stof(line.substr(j + 2, line.length() - 2 - tempString.length()));
-            myMap[tempString] = number;
+            float number = stof(line.substr(j + 1, line.length() - 3 - tempString.length()));
+            myMap[number] = tempString;
         }
     }
     ofstream outFile(fileNameOutput);
+    if (flag == 0)
+        cout << "no one";
     for (const auto& p : myMap) {
-        outFile << p.first << endl;
-        cout << p.first << endl;
+        outFile << p.second << endl;
+        cout << p.second << endl;
     }
     file.close();
 }
